@@ -3,111 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Infinite‑Scroll Travel Gallery</title>
-
-  <!-- ===== Styling ===== -->
+  <title>Travel</title>
   <style>
-    :root {
-      --gap: 10px;
-      --bg: #f5f7fa;
-      --cardShadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    h1 {
-      text-align: center;
-      padding: 1.2rem 0 0.4rem;
-      letter-spacing: 0.05em;
-      color: #333;
-    }
-
-    .gallery {
-      width: min(1200px, 90%);
-      margin: 0 auto;
-      padding-bottom: 4rem;
-      /* masonry‑like columns with modern CSS */
-      column-width: 320px;
-      column-gap: var(--gap);
-    }
-
-    .gallery img {
-      width: 100%;
-      margin-bottom: var(--gap);
-      border-radius: 8px;
-      box-shadow: var(--cardShadow);
-      break-inside: avoid;
-      transition: transform 0.3s ease;
-      background: #ddd;          /* placeholder while loading */
-    }
-
-    .gallery img:hover {
-      transform: scale(1.03);
-    }
-
-    /* Simple loader sentinel */
-    #sentinel {
-      width: 100%;
-      height: 1px;
-    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#fafafa;color:#333;}
+    .navbar{background:#ffffff;box-shadow:0 2px 8px rgba(0,0,0,.08);position:sticky;top:0;z-index:999;padding:0 1.5rem;display:flex;align-items:center;gap:2rem;}
+    .navbar h1{font-size:1.4rem;color:#8e62d5;padding:.8rem 0;}
+    .nav-links{margin-left:auto;display:flex;gap:1.2rem;}
+    .nav-links a{text-decoration:none;color:#555;font-weight:500;position:relative;}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:#8e62d5;transition:width .25s ease;}
+    .nav-links a:hover::after{width:100%;}.nav-links a:hover{color:#8e62d5;}
+    .gallery{max-width:1200px;margin:2rem auto;display:grid;gap:15px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
+    .gallery img{width:100%;height:200px;object-fit:cover;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:transform .25s ease;}
+    .gallery img:hover{transform:scale(1.05);}
+    @media (prefers-color-scheme:dark){body{background:beige;color:#ddd;}.navbar{background:#fff7f7;}.nav-links a{color:#000}.nav-links a:hover{color:#8e62d5;}}
   </style>
 </head>
 <body>
-  <h1>Explore the World 🌍</h1>
+  <header class="navbar">
+    <h1>My Gallery</h1>
+    <nav class="nav-links">
+      <a href="travel.html">Travel</a>
+      <a href="design.html">Design</a>
+      <a href="interior.html">Interior</a>
+      <a href="art.html">Art</a>
+      <a href="nature.html">Nature</a>
+      <a href="food.html">Food</a>
+    </nav>
+  </header>
 
-  <div class="gallery" id="gallery"></div>
-  <!-- Sentinel that triggers loading the next batch -->
-  <div id="sentinel"></div>
-
-  <!-- ===== JavaScript ===== -->
-  <script>
-    const gallery = document.getElementById("gallery");
-    const sentinel = document.getElementById("sentinel");
-
-    // ——— Configuration ———
-    const IMAGES_PER_BATCH = 12;
-    const UNSPLASH_URL =
-      "https://source.unsplash.com/random/800x600?travel,destination&sig=";
-
-    // Helper to build a new random travel photo URL
-    function getRandomImage() {
-      // Adding a changing query (`sig`) forces Unsplash to give a new image
-      return UNSPLASH_URL + Math.random();
-    }
-
-    // Create <img> elements and append them
-    function addImages(count = IMAGES_PER_BATCH) {
-      for (let i = 0; i < count; i++) {
-        const img = document.createElement("img");
-        img.loading = "lazy";        // native lazy‑loading hint
-        img.alt = "Travel destination photo";
-        img.src = getRandomImage();
-        gallery.appendChild(img);
-      }
-    }
-
-    // Initial batch
-    addImages();
-
-    // IntersectionObserver to load more when sentinel appears
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          addImages();
-        }
-      },
-      {
-        rootMargin: "200px", // start loading a bit before we hit bottom
-      }
-    );
-    observer.observe(sentinel);
-  </script>
+  <main class="gallery">
+    <!-- 50 square travel photos -->
+    <!-- Row 1 -->
+    <img src="https://source.unsplash.com/seed/travel1/400x400?travel" alt="Travel 1" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel2/400x400?travel" alt="Travel 2" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel3/400x400?travel" alt="Travel 3" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel4/400x400?travel" alt="Travel 4" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel5/400x400?travel" alt="Travel 5" loading="lazy">
+    <!-- Row 2 -->
+    <img src="https://source.unsplash.com/seed/travel6/400x400?travel" alt="Travel 6" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel7/400x400?travel" alt="Travel 7" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel8/400x400?travel" alt="Travel 8" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel9/400x400?travel" alt="Travel 9" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel10/400x400?travel" alt="Travel 10" loading="lazy">
+    <!-- Row 3 -->
+    <img src="https://source.unsplash.com/seed/travel11/400x400?travel" alt="Travel 11" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel12/400x400?travel" alt="Travel 12" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel13/400x400?travel" alt="Travel 13" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel14/400x400?travel" alt="Travel 14" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel15/400x400?travel" alt="Travel 15" loading="lazy">
+    <!-- Row 4 -->
+    <img src="https://source.unsplash.com/seed/travel16/400x400?travel" alt="Travel 16" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel17/400x400?travel" alt="Travel 17" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel18/400x400?travel" alt="Travel 18" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel19/400x400?travel" alt="Travel 19" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel20/400x400?travel" alt="Travel 20" loading="lazy">
+    <!-- Row 5 -->
+    <img src="https://source.unsplash.com/seed/travel21/400x400?travel" alt="Travel 21" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel22/400x400?travel" alt="Travel 22" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel23/400x400?travel" alt="Travel 23" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel24/400x400?travel" alt="Travel 24" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel25/400x400?travel" alt="Travel 25" loading="lazy">
+    <!-- Row 6 -->
+    <img src="https://source.unsplash.com/seed/travel26/400x400?travel" alt="Travel 26" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel27/400x400?travel" alt="Travel 27" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel28/400x400?travel" alt="Travel 28" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel29/400x400?travel" alt="Travel 29" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel30/400x400?travel" alt="Travel 30" loading="lazy">
+    <!-- Row 7 -->
+    <img src="https://source.unsplash.com/seed/travel31/400x400?travel" alt="Travel 31" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel32/400x400?travel" alt="Travel 32" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel33/400x400?travel" alt="Travel 33" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel34/400x400?travel" alt="Travel 34" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel35/400x400?travel" alt="Travel 35" loading="lazy">
+    <!-- Row 8 -->
+    <img src="https://source.unsplash.com/seed/travel36/400x400?travel" alt="Travel 36" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel37/400x400?travel" alt="Travel 37" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel38/400x400?travel" alt="Travel 38" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel39/400x400?travel" alt="Travel 39" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel40/400x400?travel" alt="Travel 40" loading="lazy">
+    <!-- Row 9 -->
+    <img src="https://source.unsplash.com/seed/travel41/400x400?travel" alt="Travel 41" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel42/400x400?travel" alt="Travel 42" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel43/400x400?travel" alt="Travel 43" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel44/400x400?travel" alt="Travel 44" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel45/400x400?travel" alt="Travel 45" loading="lazy">
+    <!-- Row 10 -->
+    <img src="https://source.unsplash.com/seed/travel46/400x400?travel" alt="Travel 46" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel47/400x400?travel" alt="Travel 47" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel48/400x400?travel" alt="Travel 48" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel49/400x400?travel" alt="Travel 49" loading="lazy">
+    <img src="https://source.unsplash.com/seed/travel50/400x400?travel" alt="Travel 50" loading="lazy">
+  </main>
 </body>
 </html>
