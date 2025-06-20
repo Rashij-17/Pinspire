@@ -4,7 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nature</title>
-  <style>/* same CSS as above */</style>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#fafafa;color:#333;}
+    .navbar{background:#ffffff;box-shadow:0 2px 8px rgba(0,0,0,.08);position:sticky;top:0;z-index:999;padding:0 1.5rem;display:flex;align-items:center;gap:2rem;}
+    .navbar h1{font-size:1.4rem;color:#8e62d5;padding:.8rem 0;}
+    .nav-links{margin-left:auto;display:flex;gap:1.2rem;}
+    .nav-links a{text-decoration:none;color:#555;font-weight:500;position:relative;}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:#8e62d5;transition:width .25s ease;}
+    .nav-links a:hover::after{width:100%;}.nav-links a:hover{color:#8e62d5;}
+    .gallery{max-width:1200px;margin:2rem auto;display:grid;gap:15px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
+    .gallery img{width:100%;height:200px;object-fit:cover;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:transform .25s ease;}
+    .gallery img:hover{transform:scale(1.05);}
+    @media (prefers-color-scheme:dark){body{background:beige;color:#ddd;}.navbar{background:#fff7f7;}.nav-links a{color:#000}.nav-links a:hover{color:#8e62d5;}}
+  </style>
 </head>
 <body>
   <header class="navbar">
