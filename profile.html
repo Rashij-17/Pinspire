@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile - Interests</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .profile-card {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-header img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ddd;
+    }
+
+    .profile-header h2 {
+      margin: 0;
+      color: #333;
+    }
+
+    .interests-section {
+      margin-top: 2rem;
+    }
+
+    .interests-section h3 {
+      margin-bottom: 1rem;
+      color: #555;
+    }
+
+    .interest-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .interest-tag {
+      background: #f1f1f1;
+      color: #444;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .interest-tag button {
+      border: none;
+      background: transparent;
+      color: #999;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-interest {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 10px;
+    }
+
+    .add-interest input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .add-interest button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #ff5a5f;
+      color: white;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .add-interest button:hover {
+      background-color: #e14b50;
+    }
+
+    @media (max-width: 600px) {
+      .profile-header {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .add-interest {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-card">
+    <div class="profile-header">
+      <img src="profile.png" alt="Profile Picture">
+      <h2>Hello, <strong>${name}</strong></h2>
+    </div>
+
+    <div class="interests-section">
+      <h3>Interests</h3>
+      <div class="interest-list" id="interestList">
+        <!-- Interests appear here -->
+      </div>
+
+      <div class="add-interest">
+        <input type="text" id="interestInput" placeholder="Add a new interest...">
+        <button onclick="addInterest()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let interests = ['Art', 'Photography', 'Travel', 'Fashion'];
+
+    const listContainer = document.getElementById('interestList');
+    const input = document.getElementById('interestInput');
+
+    function renderInterests() {
+      listContainer.innerHTML = '';
+      interests.forEach((item, index) => {
+        const tag = document.createElement('div');
+        tag.className = 'interest-tag';
+        tag.innerHTML = `${item} <button onclick="removeInterest(${index})">&times;</button>`;
+        listContainer.appendChild(tag);
+      });
+    }
+
+    function addInterest() {
+      const newInterest = input.value.trim();
+      if (newInterest && !interests.includes(newInterest)) {
+        interests.push(newInterest);
+        input.value = '';
+        renderInterests();
+      } else {
+        alert("Please enter a unique interest.");
+      }
+    }
+
+    function removeInterest(index) {
+      interests.splice(index, 1);
+      renderInterests();
+    }
+
+    // Initialize on load
+    renderInterests();
+  </script>
+
+</body>
+<script src="login.js"></script>
+</html>
