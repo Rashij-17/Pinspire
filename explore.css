@@ -6,160 +6,7 @@
 
 body {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color:<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pinspire</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #faf3f0;
-      color: #111;
-      overflow-x: hidden;
-    }
-
-    header {
-      background: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    header h1 {
-      font-size: 1.7rem;
-      color: #1a1a1a;
-      font-weight: bold;
-    }
-
-    header input {
-      padding: 0.6rem 1rem;
-      width: 40%;
-      border-radius: 25px;
-      border: 1px solid #ddd;
-      outline: none;
-      font-size: 1rem;
-      transition: box-shadow 0.3s ease;
-    }
-
-    header input:focus {
-      box-shadow: 0 0 5px rgba(209, 77, 114, 0.5);
-    }
-
-    #gallery {
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .pin {
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      background: white;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      height: 350px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .pin:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-    }
-
-    .pin img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .pin:hover img {
-      transform: scale(1.05);
-    }
-
-    #loading {
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 1rem;
-      color: #999;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>Pinspire</h1>
-    <input type="text" placeholder="Search your inspiration...">
-  </header>
-
-  <main id="gallery"></main>
-  <div id="loading">Loading more pins...</div>
-
-  <script>
-    const gallery = document.getElementById("gallery");
-    const loading = document.getElementById("loading");
-    let loadingImages = false;
-    let imageCount = 0;
-
-    function loadImages(count = 10) {
-      if (loadingImages) return;
-      loadingImages = true;
-
-      for (let i = 0; i < count; i++) {
-        const pin = document.createElement("div");
-        pin.className = "pin";
-
-        const img = new Image();
-        img.src = `https://picsum.photos/300/400?random=${imageCount + i}`;
-        img.alt = "Aesthetic Pin";
-
-        img.onload = () => {
-          pin.appendChild(img);
-          gallery.appendChild(pin);
-          if (i === count - 1) {
-            loadingImages = false;
-            imageCount += count;
-          }
-        };
-
-        img.onerror = () => {
-          loadingImages = false;
-          loading.innerText = "Failed to load pins. Try refreshing.";
-        };
-      }
-    }
-
-    // Initial load
-    loadImages();
-
-    // Infinite scroll
-    window.addEventListener("scroll", () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !loadingImages) {
-        loadImages(10);
-      }
-    });
-  </script>
-
-</body>
-</html>
-;
+  background-color:bisque;
   color: #333;
 }
 
@@ -232,8 +79,10 @@ nav a:hover {
   text-align: center;
   position:relative;
   top:30px;
+  text-decoration: none;
+  color:black;
 }
-  a{
+a{
   text-decoration: none;
   color:black;
 }
