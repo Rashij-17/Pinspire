@@ -2,132 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Travel Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infinite‑Scroll Travel Gallery</title>
+
+  <!-- ===== Styling ===== -->
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --gap: 10px;
+      --bg: #f5f7fa;
+      --cardShadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f3ef;
-      color: #111;
-      overflow-x: hidden;
-    }
-
-    header {
-      background:#b67233;
-      padding: 1rem 2rem;
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
       display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
-    header h1 {
-      font-size: 2rem;
-      color:white;
-      letter-spacing: 1px;
-    }
-
-    #gallery {
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .card {
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease;
-      background-color: #fff;
-      height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-
-    .card:hover img {
-      transform: scale(1.05);
-    }
-
-    #loading {
+    h1 {
       text-align: center;
-      padding: 1.5rem;
-      font-size: 1rem;
-      color: #888;
+      padding: 1.2rem 0 0.4rem;
+      letter-spacing: 0.05em;
+      color: #333;
+    }
+
+    .gallery {
+      width: min(1200px, 90%);
+      margin: 0 auto;
+      padding-bottom: 4rem;
+      /* masonry‑like columns with modern CSS */
+      column-width: 320px;
+      column-gap: var(--gap);
+    }
+
+    .gallery img {
+      width: 100%;
+      margin-bottom: var(--gap);
+      border-radius: 8px;
+      box-shadow: var(--cardShadow);
+      break-inside: avoid;
+      transition: transform 0.3s ease;
+      background: #ddd;          /* placeholder while loading */
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    /* Simple loader sentinel */
+    #sentinel {
+      width: 100%;
+      height: 1px;
     }
   </style>
 </head>
 <body>
+  <h1>Explore the World 🌍</h1>
 
-  <header>
-    <h1>Travel Gallery</h1>
-  </header>
+  <div class="gallery" id="gallery"></div>
+  <!-- Sentinel that triggers loading the next batch -->
+  <div id="sentinel"></div>
 
-  <main id="gallery"></main>
-  <div id="loading">Loading travel moments...</div>
-
+  <!-- ===== JavaScript ===== -->
   <script>
     const gallery = document.getElementById("gallery");
-    const loading = document.getElementById("loading");
-    let isLoading = false;
-    let imageIndex = 0;
+    const sentinel = document.getElementById("sentinel");
 
-    function loadImages(count = 8) {
-      if (isLoading) return;
-      isLoading = true;
+    // ——— Configuration ———
+    const IMAGES_PER_BATCH = 12;
+    const UNSPLASH_URL =
+      "https://source.unsplash.com/random/800x600?travel,destination&sig=";
 
+    // Helper to build a new random travel photo URL
+    function getRandomImage() {
+      // Adding a changing query (`sig`) forces Unsplash to give a new image
+      return UNSPLASH_URL + Math.random();
+    }
+
+    // Create <img> elements and append them
+    function addImages(count = IMAGES_PER_BATCH) {
       for (let i = 0; i < count; i++) {
-        const card = document.createElement("div");
-        card.className = "card";
-
-        const img = new Image();
-        const randomHeight = 300 + Math.floor(Math.random() * 100); // Vary heights for interest
-        img.src = `https://picsum.photos/400/${randomHeight}?random=${imageIndex + i}&blur=1`;
-        img.alt = "Travel Image";
-
-        img.onload = () => {
-          card.appendChild(img);
-          gallery.appendChild(card);
-          if (i === count - 1) {
-            isLoading = false;
-            imageIndex += count;
-          }
-        };
-
-        img.onerror = () => {
-          loading.innerText = "Failed to load images. Please refresh.";
-          isLoading = false;
-        };
+        const img = document.createElement("img");
+        img.loading = "lazy";        // native lazy‑loading hint
+        img.alt = "Travel destination photo";
+        img.src = getRandomImage();
+        gallery.appendChild(img);
       }
     }
 
-    // Initial load
-    loadImages();
+    // Initial batch
+    addImages();
 
-    // Infinite scroll logic
-    window.addEventListener("scroll", () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !isLoading) {
-        loadImages(8);
+    // IntersectionObserver to load more when sentinel appears
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          addImages();
+        }
+      },
+      {
+        rootMargin: "200px", // start loading a bit before we hit bottom
       }
-    });
+    );
+    observer.observe(sentinel);
   </script>
-
 </body>
 </html>
