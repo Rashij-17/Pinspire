@@ -1,48 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore|Nature</title>
-    <link rel="stylesheet" href="travel.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel Gallery</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f3ef;
+      color: #111;
+      overflow-x: hidden;
+    }
+
+    header {
+      background:#b67233;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color:white;
+      letter-spacing: 1px;
+    }
+
+    #gallery {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+      background-color: #fff;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    #loading {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 1rem;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
-    <header>
-    <h1 class="logo">Pinspire</h1>
-    <nav>
-      <a href="home.html">Home</a>
-      <a href="explore.html">Explore</a>
-      <a href="#">Trending</a>
-      <a href="#">Profile</a>
-    </nav>
+
+  <header>
+    <h1>Travel Gallery</h1>
   </header>
-  <main>
-    <div class="grid">
-     <div class="card"><img src="italy.png"></div>
 
-      <div class="card"><img src="rome.png"></div>
+  <main id="gallery"></main>
+  <div id="loading">Loading travel moments...</div>
 
-      <div class="card"><img src="venice.png"></div>
+  <script>
+    const gallery = document.getElementById("gallery");
+    const loading = document.getElementById("loading");
+    let isLoading = false;
+    let imageIndex = 0;
 
-      <div class="card"><img src="paris.png" ></div>
-      
-      <div class="card"><img src="beach.png"></div>
-      
-      <div class="card"><img src="turkey.png"></div>
+    function loadImages(count = 8) {
+      if (isLoading) return;
+      isLoading = true;
 
-      <div class="card"><img src="swiz.png"></div>
+      for (let i = 0; i < count; i++) {
+        const card = document.createElement("div");
+        card.className = "card";
 
-      <div class="card"><img src="sydney.png"></div>
+        const img = new Image();
+        const randomHeight = 300 + Math.floor(Math.random() * 100); // Vary heights for interest
+        img.src = `https://picsum.photos/400/${randomHeight}?random=${imageIndex + i}&blur=1`;
+        img.alt = "Travel Image";
 
-      <div class="card"><img src="edenberg.png"></div>
+        img.onload = () => {
+          card.appendChild(img);
+          gallery.appendChild(card);
+          if (i === count - 1) {
+            isLoading = false;
+            imageIndex += count;
+          }
+        };
 
-      <div class="card"><img src="seoul.png"></div>
+        img.onerror = () => {
+          loading.innerText = "Failed to load images. Please refresh.";
+          isLoading = false;
+        };
+      }
+    }
 
-      <div class="card"><img src="tavel2.png"></div>
+    // Initial load
+    loadImages();
 
-      <div class="card"><img src="jhibi.png"></div>
+    // Infinite scroll logic
+    window.addEventListener("scroll", () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !isLoading) {
+        loadImages(8);
+      }
+    });
+  </script>
 
-      </div>
-  </main>
 </body>
 </html>
