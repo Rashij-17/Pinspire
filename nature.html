@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nature Gallery 🌿</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef3ec;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      color: #2e5339;
+    }
+
+    .gallery {
+      column-count: 3;
+      column-gap: 15px;
+      padding: 0 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+      background: #cfe4d3;
+      break-inside: avoid;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery {
+        column-count: 1;
+      }
+    }
+
+    #sentinel {
+      height: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Infinite Nature Gallery 🍃</h1>
+  <div class="gallery" id="gallery"></div>
+  <div id="sentinel"></div>
+
+  <script>
+    const gallery = document.getElementById("gallery");
+    const sentinel = document.getElementById("sentinel");
+
+    const UNSPLASH_URL = "https://source.unsplash.com/random/800x600?nature&sig=";
+    const IMAGES_PER_BATCH = 12;
+
+    function getRandomImageUrl() {
+      return UNSPLASH_URL + Math.random();
+    }
+
+    function addImages(count = IMAGES_PER_BATCH) {
+      for (let i = 0; i < count; i++) {
+        const img = document.createElement("img");
+        img.src = getRandomImageUrl();
+        img.alt = "Nature scenery";
+        img.loading = "lazy";
+        gallery.appendChild(img);
+      }
+    }
+
+    // Load initial images
+    addImages();
+
+    // Load more on scroll
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          addImages();
+        }
+      },
+      {
+        rootMargin: "200px"
+      }
+    );
+
+    observer.observe(sentinel);
+  </script>
+
+</body>
+</html>
