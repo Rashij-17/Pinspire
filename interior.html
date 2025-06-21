@@ -3,118 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Trusted Interior Design Gallery</title>
+  <title>Interior Design Gallery</title>
+
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f6f5f3;
-      margin: 0;
-      padding: 0;
+    /* ===== BASIC RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #fafafa; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: sticky; top: 0; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 1.5rem; height: 64px;
+      background: #232323; color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.2);
     }
 
-    h1 {
-      text-align: center;
-      padding: 1.5rem 0;
-      color: #333;
+    .logo { font-size: 1.25rem; font-weight: 600; letter-spacing: .5px; }
+
+    .nav-links { list-style: none; display: flex; gap: 1.25rem; }
+    .nav-links a {
+      position: relative; text-decoration: none; font-weight: 500; color: #fff;
+      transition: opacity .2s;
+    }
+    .nav-links a:hover { opacity: .8; }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px;
+      width: 0; height: 2px; background: #fff; transition: width .3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ===== GALLERY ===== */
+    .gallery {
+      padding: 90px 1.2rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
     }
 
-    .grid {
-      column-count: 3;
-      column-gap: 1rem;
-      padding: 0 1rem;
+    .gallery img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+      transition: transform .3s, box-shadow .3s;
     }
-
-    .grid-item {
-      break-inside: avoid;
-      margin-bottom: 1rem;
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    }
-
-    .grid-item img {
-      width: 100%;
-      display: block;
-    }
-
-    #loader {
-      width: 40px;
-      height: 40px;
-      margin: 1rem auto;
-      border: 4px solid #aaa;
-      border-top-color: transparent;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .gallery img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba(0,0,0,.25);
     }
   </style>
 </head>
-<body>
 
-  <h1>Interior Design Aesthetic</h1>
-  <div class="grid" id="gallery"></div>
-  <div id="loader"></div>
+<body>
+  <!-- ===== NAVIGATION BAR ===== -->
+  <header class="navbar">
+    <h1 class="logo">Interior&nbsp;Gallery</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== IMAGE GRID ===== -->
+  <main>
+    <section id="gallery" class="gallery"></section>
+  </main>
 
   <script>
+    // Dynamically add 30 interior design images
     const gallery = document.getElementById("gallery");
-    const loader = document.getElementById("loader");
+    const IMAGE_COUNT = 30;
 
-    // Trusted Unsplash image links
-    const imageLinks = [
-      "https://images.unsplash.com/photo-1505691723518-36a6f76a1a5a",
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7",
-      "https://images.unsplash.com/photo-1595526114035-44b81e4ce2b6",
-      "https://images.unsplash.com/photo-1598300051512-de3dfdd06418",
-      "https://images.unsplash.com/photo-1600585154084-3b4b241c8d0c",
-      "https://images.unsplash.com/photo-1615873968403-89e068629265",
-      "https://images.unsplash.com/photo-1586105251261-72a756497a12",
-      "https://images.unsplash.com/photo-1598300042245-d0d91aa02a6c",
-      "https://images.unsplash.com/photo-1598300051394-460aa72c1e59",
-      "https://images.unsplash.com/photo-1613545325278-3b63dc3f5df3"
-    ];
-
-    let index = 0;
-
-    function loadBatch(count = 4) {
-      loader.style.display = "block";
-
-      for (let i = 0; i < count; i++) {
-        if (index >= imageLinks.length) index = 0; // Loop around if at end
-
-        const wrapper = document.createElement("div");
-        wrapper.className = "grid-item";
-
-        const img = document.createElement("img");
-        img.src = `${imageLinks[index]}?w=600&auto=format&fit=crop`;
-        img.alt = "Interior Design";
-
-        wrapper.appendChild(img);
-        gallery.appendChild(wrapper);
-
-        index++;
-      }
-
-      setTimeout(() => loader.style.display = "none", 300);
+    for (let i = 1; i <= IMAGE_COUNT; i++) {
+      const img = document.createElement("img");
+      img.src = `https://source.unsplash.com/random/600x800?interior&sig=${i}`;
+      img.alt = `Interior Design ${i}`;
+      gallery.appendChild(img);
     }
-
-    function handleScroll() {
-      const scrollPos = window.innerHeight + window.scrollY;
-      const bottomOffset = document.body.offsetHeight - 300;
-
-      if (scrollPos >= bottomOffset) {
-        window.removeEventListener("scroll", handleScroll);
-        loadBatch();
-        setTimeout(() => window.addEventListener("scroll", handleScroll), 400);
-      }
-    }
-
-    // Initial load
-    loadBatch(6);
-    window.addEventListener("scroll", handleScroll);
   </script>
 </body>
 </html>
