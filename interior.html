@@ -1,1 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interior Design</title>
+
+  <!-- ─────────  EMBEDDED CSS  ───────── -->
+  <style>
+    /* --------‑‑ BASIC RESET ‑‑-------- */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:#faf9fe;   /* soft lilac */
+      color:#333;
+    }
+
+    /* --------‑‑ NAVBAR ‑‑-------- */
+    .navbar{
+      background:#ffffff;
+      box-shadow:0 2px 8px rgba(0,0,0,.08);
+      position:sticky;top:0;z-index:999;
+      padding:0 1.5rem;
+      display:flex;align-items:center;gap:2rem;
+    }
+    .navbar h1{
+      font-size:1.4rem;
+      color:#9a7be9;        /* lavender accent */
+      padding:.8rem 0;
+    }
+    .nav-links{
+      margin-left:auto;
+      display:flex;gap:1.2rem;
+    }
+    .nav-links a{
+      text-decoration:none;color:#555;font-weight:500;position:relative;
+    }
+    .nav-links a::after{
+      content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;
+      background:#9a7be9;transition:width .25s ease;
+    }
+    .nav-links a:hover::after{width:100%;}
+    .nav-links a:hover{color:#9a7be9;}
+
+    /* --------‑‑ IMAGE GRID ‑‑-------- */
+    .gallery{
+      max-width:1200px;
+      margin:2rem auto;
+      display:grid;
+      gap:15px;
+      grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    }
+    .gallery img{
+      width:100%;height:200px;object-fit:cover;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+      transition:transform .25s ease;
+    }
+    .gallery img:hover{transform:scale(1.05);}
+
+    /* --------‑‑ DARK‑MODE TWEAKS ‑‑-------- */
+    @media (prefers-color-scheme:dark){
+      body{background:#1d1b24;color:#eee;}
+      .navbar{background:#28262f;}
+      .nav-links a{color:#ccc;}
+      .nav-links a:hover{color:#9a7be9;}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ─────────  NAVIGATION BAR  ───────── -->
+  <header class="navbar">
+    <h1>Interior&nbsp;Design</h1>
+
+    <!-- reuse the same link set so pages “feel” connected -->
+    <nav class="nav-links">
+      <a href="travel.html">Travel</a>
+      <a href="design.html">Design</a>
+      <a href="interior.html">Interior</a>
+      <a href="art.html">Art</a>
+      <a href="nature.html">Nature</a>
+      <a href="food.html">Food</a>
+    </nav>
+  </header>
+
+  <!-- ─────────  50 AESTHETIC INTERIOR PHOTOS  ───────── -->
+  <main class="gallery">
+    <!-- Row 1 -->
+    <img src="https://source.unsplash.com/seed/interior1/400x400?interior,design"  alt="Interior 1"  loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior2/400x400?interior,design"  alt="Interior 2"  loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior3/400x400?interior,design"  alt="Interior 3"  loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior4/400x400?interior,design"  alt="Interior 4"  loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior5/400x400?interior,design"  alt="Interior 5"  loading="lazy">
+
+    <!-- Row 2 -->
+    <img src="https://source.unsplash.com/seed/interior6/400x400?interior,design"  alt="Interior 6"  loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior7/400x400?interior,design"  alt="Interior 7"  loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior8/400x400?interior,design"  alt="Interior 8"  loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior9/400x400?interior,design"  alt="Interior 9"  loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior10/400x400?interior,design" alt="Interior 10" loading="lazy">
+
+    <!-- Row 3 -->
+    <img src="https://source.unsplash.com/seed/interior11/400x400?interior,design" alt="Interior 11" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior12/400x400?interior,design" alt="Interior 12" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior13/400x400?interior,design" alt="Interior 13" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior14/400x400?interior,design" alt="Interior 14" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior15/400x400?interior,design" alt="Interior 15" loading="lazy">
+
+    <!-- Row 4 -->
+    <img src="https://source.unsplash.com/seed/interior16/400x400?interior,design" alt="Interior 16" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior17/400x400?interior,design" alt="Interior 17" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior18/400x400?interior,design" alt="Interior 18" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior19/400x400?interior,design" alt="Interior 19" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior20/400x400?interior,design" alt="Interior 20" loading="lazy">
+
+    <!-- Row 5 -->
+    <img src="https://source.unsplash.com/seed/interior21/400x400?interior,design" alt="Interior 21" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior22/400x400?interior,design" alt="Interior 22" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior23/400x400?interior,design" alt="Interior 23" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior24/400x400?interior,design" alt="Interior 24" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior25/400x400?interior,design" alt="Interior 25" loading="lazy">
+
+    <!-- Row 6 -->
+    <img src="https://source.unsplash.com/seed/interior26/400x400?interior,design" alt="Interior 26" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior27/400x400?interior,design" alt="Interior 27" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior28/400x400?interior,design" alt="Interior 28" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior29/400x400?interior,design" alt="Interior 29" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior30/400x400?interior,design" alt="Interior 30" loading="lazy">
+
+    <!-- Row 7 -->
+    <img src="https://source.unsplash.com/seed/interior31/400x400?interior,design" alt="Interior 31" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior32/400x400?interior,design" alt="Interior 32" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior33/400x400?interior,design" alt="Interior 33" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior34/400x400?interior,design" alt="Interior 34" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior35/400x400?interior,design" alt="Interior 35" loading="lazy">
+
+    <!-- Row 8 -->
+    <img src="https://source.unsplash.com/seed/interior36/400x400?interior,design" alt="Interior 36" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior37/400x400?interior,design" alt="Interior 37" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior38/400x400?interior,design" alt="Interior 38" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior39/400x400?interior,design" alt="Interior 39" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior40/400x400?interior,design" alt="Interior 40" loading="lazy">
+
+    <!-- Row 9 -->
+    <img src="https://source.unsplash.com/seed/interior41/400x400?interior,design" alt="Interior 41" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior42/400x400?interior,design" alt="Interior 42" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior43/400x400?interior,design" alt="Interior 43" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior44/400x400?interior,design" alt="Interior 44" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior45/400x400?interior,design" alt="Interior 45" loading="lazy">
+
+    <!-- Row 10 -->
+    <img src="https://source.unsplash.com/seed/interior46/400x400?interior,design" alt="Interior 46" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior47/400x400?interior,design" alt="Interior 47" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior48/400x400?interior,design" alt="Interior 48" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior49/400x400?interior,design" alt="Interior 49" loading="lazy">
+    <img src="https://source.unsplash.com/seed/interior50/400x400?interior,design" alt="Interior 50" loading="lazy">
+  </main>
+</body>
+</html>
 
