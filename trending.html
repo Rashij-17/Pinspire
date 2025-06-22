@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>trending on pinspire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Raleway&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(to right, #f6ede0, #fcefe3);
+    }
+
+    header {
+      background-color: #fff9f3;
+      padding: 30px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3.2rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-transform: lowercase;
+      color: #5a3e36;
+      background: linear-gradient(90deg, #8d5a4f, #d79b7d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 6px rgba(198, 158, 126, 0.3);
+      animation: fadeIn 1.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid {
+      columns: 3 250px;
+      column-gap: 1rem;
+      padding: 1.5rem;
+    }
+
+    .pin {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .pin:hover {
+      transform: scale(1.02);
+    }
+
+    .pin img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 450px; /* Tall images like 'sunsets' are shortened */
+      object-fit: cover;
+    }
+
+    .caption {
+      padding: 10px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #6a4f4b;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        columns: 2 150px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        columns: 1 100%;
+      }
+
+      header h1 {
+        font-size: 2.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>✨ trending on pinspire ✨</h1>
+  </header>
+
+  <div class="grid" id="pinGrid">
+    <!-- Initial Pins -->
+  </div>
+
+  <script>
+    const pins = [
+      { src: 'images/art and diy.jpg', caption: 'DIY & Art' },
+      { src: 'images/cafe hopping.jpg', caption: 'Cafe Hopping' },
+      { src: 'images/motivational.jpg', caption: 'Motivational' },
+      { src: 'images/outfit ideas.jpg', caption: 'Outfit Inspo' },
+      { src: 'images/sunsets.jpg', caption: 'Sunsets' },
+      { src: 'images/children.jpg', caption: 'Children\'s Rights' },
+      { src: 'images/coffee.jpg', caption: 'Coffee First ☕' },
+      { src: 'images/shopping.jpg', caption: 'Shopping Haul 🛍️' },
+      { src: 'images/lyrics.jpg', caption: 'Lyric Vibes 🎵' },
+      { src: 'images/90s bollywood.jpg', caption: '90s Bollywood Nostalgia 🎬' },
+      { src: 'images/books.jpg', caption: 'Romance Reads 📚' },
+      { src: 'images/digital journalling.jpg', caption: 'Digital Journalling ✍️' }
+    ];
+
+    let index = 0;
+
+    function loadMorePins(count = 4) {
+      const grid = document.getElementById('pinGrid');
+      for (let i = 0; i < count && index < pins.length; i++, index++) {
+        const pin = document.createElement('div');
+        pin.className = 'pin';
+
+        const img = document.createElement('img');
+        img.src = pins[index].src;
+        img.alt = pins[index].caption;
+
+        const caption = document.createElement('div');
+        caption.className = 'caption';
+        caption.textContent = pins[index].caption;
+
+        pin.appendChild(img);
+        pin.appendChild(caption);
+        grid.appendChild(pin);
+      }
+    }
+
+    // Initial load
+    loadMorePins(6);
+
+    // Infinite scroll
+    window.addEventListener('scroll', () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+        loadMorePins(3);
+      }
+    });
+  </script>
+</body>
+</html>
