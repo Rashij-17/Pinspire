@@ -33,12 +33,49 @@
   </header>
 
   <main class="gallery">
-    <!-- 50 art photos -->
-    <img src="https://source.unsplash.com/seed/art1/400x400?art" alt="Art 1" loading="lazy">
-    <img src="https://source.unsplash.com/seed/art2/400x400?art" alt="Art 2" loading="lazy">
-    <!-- …art3 → art50… -->
-    <img src="https://source.unsplash.com/seed/art50/400x400?art" alt="Art 50" loading="lazy">
+    
   </main>
+  <script>
+  const accessKey = "OWpI9_o2yssBBmD2ni_2c5jed63jeljd6DBT1w79r18";
+  const gallery = document.querySelector(".gallery");
+  const query = "art";
+  let page = 1;
+  const perPage = 20;
+  let loading = false;
+
+  async function loadImages() {
+    if (loading) return;
+    loading = true;
+
+    try {
+      const response = await fetch(`https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}&client_id=${accessKey}`);
+      const data = await response.json();
+
+      data.results.forEach(photo => {
+        const img = document.createElement("img");
+        img.src = photo.urls.small;
+        img.alt = photo.alt_description || "Art";
+        img.loading = "lazy";
+        gallery.appendChild(img);
+      });
+
+      page++;
+    } catch (err) {
+      console.error("Error loading images:", err);
+    }
+
+    loading = false;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+      loadImages();
+    }
+  });
+
+  loadImages(); // initial load
+</script>
+
 </body>
 </html>
 
