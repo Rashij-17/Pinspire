@@ -100,16 +100,19 @@
     }
 
     loading = false;
+  }
 
+  // ✅ Initial load
+  loadImages();
+
+  // ✅ Infinite scroll
   window.addEventListener("scroll", () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
       loadImages();
     }
   });
-
-  
-  loadImages();
 </script>
+
 
 </body>
 </html>
