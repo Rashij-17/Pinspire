@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pinspire - Welcome</title>
   <link rel="stylesheet" href="style.css"/>
+  <style>
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #f3f3f3;
+      margin-top: 40px;
+    }
+
+    .btn-bottom {
+      background-color: #ff6f61;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+    }
+
+    .btn-bottom a {
+      color: white;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
   <header class="navbar">
@@ -17,15 +44,16 @@
       <a href="profile.html">Profile</a>
     </nav>
   </header>
-    <main>
-    <!-- Video section right below navbar -->
-    <video width="100%" autoplay muted loop>
-      <source src="pinspire.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
 
+  <main>
+    <!-- Video section right below navbar -->
+    <video src="pinspire.mp4" autoplay muted loop playsinline></video>
+  </main>
+
+  <footer>
     <button class="btn-bottom">
       <a id="linkbtn" href="login.html">Log in</a>
     </button>
-  </main>
+  </footer>
+</body>
 </html>
