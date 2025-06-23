@@ -125,3 +125,13 @@ body {
       color:white;
       text-decoration:none;
     }
+ footer
+    {
+      text-align:center;
+      color:#7B3F00;;
+    }
+    footer h4
+    {
+      font-style:cursive;
+      color:white;
+    }
