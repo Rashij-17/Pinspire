@@ -3,23 +3,133 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Design</title>
-  <style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#fafafa;color:#333;}
-    .navbar{background:#ffffff;box-shadow:0 2px 8px rgba(0,0,0,.08);position:sticky;top:0;z-index:999;padding:0 1.5rem;display:flex;align-items:center;gap:2rem;}
-    .navbar h1{font-size:1.4rem;color:#8e62d5;padding:.8rem 0;}
-    .nav-links{margin-left:auto;display:flex;gap:1.2rem;}
-    .nav-links a{text-decoration:none;color:#555;font-weight:500;position:relative;}
-    .nav-links a::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:#8e62d5;transition:width .25s ease;}
-    .nav-links a:hover::after{width:100%;}.nav-links a:hover{color:#8e62d5;}
-    .gallery{max-width:1200px;margin:2rem auto;display:grid;gap:15px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
-    .gallery img{width:100%;height:200px;object-fit:cover;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:transform .25s ease;}
+  <title>Design | Pinspire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family: 'Raleway', sans-serif;
+      background:#fdf8f5;
+      color:#333;
+      overflow-x: hidden;
+    }
+    .navbar{
+      background:white;
+      box-shadow:0 2px 8px rgba(0,0,0,.08);
+      position:sticky;top:0;z-index:999;
+      padding:0 1.5rem;
+      display:flex;align-items:center;gap:2rem;
+    }
+    .navbar h1{
+      font-size:1.4rem;
+      color:#b26e63;
+      padding:.8rem 0;
+      font-family: 'Playfair Display', serif;
+    }
+    .nav-links{
+      margin-left:auto;
+      display:flex;gap:1.2rem;
+    }
+    .nav-links a{
+      text-decoration:none;color:#555;font-weight:600;position:relative;
+    }
+    .nav-links a::after{
+      content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;
+      background:#b26e63;transition:width .25s ease;
+    }
+    .nav-links a:hover::after{width:100%;}
+    .nav-links a:hover{color:#d87093;}
+    .page-title {
+      text-align: center;
+      margin: 2.5rem 0 1.5rem;
+      font-size: 2.8rem;
+      color: #8c4f48;
+      font-family: 'Playfair Display', serif;
+    }
+    .gallery {
+      column-count: 4;
+      column-gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      padding: 0 2rem;
+    }
+    @media (max-width: 1024px) {.gallery { column-count: 3; }}
+    @media (max-width: 768px) {.gallery { column-count: 2; }}
+    @media (max-width: 480px) {.gallery { column-count: 1; }}
+    .gallery img{
+      width:100%;
+      margin-bottom: 1.5rem;
+      height:auto;
+      object-fit:cover;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+      transition:transform .25s ease;
+      cursor: pointer;
+    }
     .gallery img:hover{transform:scale(1.05);}
-    @media (prefers-color-scheme:dark){body{background:beige;color:#ddd;}.navbar{background:#fff7f7;}.nav-links a{color:#000}.nav-links a:hover{color:#8e62d5;}}</style>
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      z-index: 2000;
+      overflow: auto;
+    }
+    .popup-content {
+      background: #fff;
+      margin: 2rem auto;
+      border-radius: 16px;
+      max-width: 1000px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .popup-header .close-btn {
+      font-size: 22px;
+      cursor: pointer;
+      color: #333;
+    }
+    .popup-main-img {
+      width: 100%;
+      border-radius: 10px;
+      max-height: 600px;
+      object-fit: contain;
+      margin: 1rem 0;
+    }
+    .related-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #8c4f48;
+      margin: 0.5rem 0;
+    }
+    .related {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .related img {
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .related img:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
   <header class="navbar">
-    <h1>Design</h1>
+    <h1 onclick="location.href='index.html'">Pinspire</h1>
+
     <nav class="nav-links">
       <a href="travel.html">Travel</a>
       <a href="design.html">Design</a>
@@ -29,53 +139,100 @@
       <a href="food.html">Food</a>
     </nav>
   </header>
-
-  <main class="gallery">
-    
-  </main>
+  <h1 class="page-title">Modern Design Inspiration</h1>
+  <main class="gallery"></main>
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <div class="popup-header">
+        <span class="related-title">Image Preview</span>
+        <span class="close-btn" id="closePopup">&times;</span>
+      </div>
+      <img id="popup-img" class="popup-main-img" src="" alt="Selected Image">
+      <div class="related-title">More like this</div>
+      <div class="related" id="related-images"></div>
+    </div>
+  </div>
   <script>
-  const accessKey = "OWpI9_o2yssBBmD2ni_2c5jed63jeljd6DBT1w79r18"; 
-  const gallery = document.querySelector(".gallery");
-  const query = "design";
-  let page = 1;
-  const perPage = 20;
-  let loading = false;
+    const accessKey = "OWpI9_o2yssBBmD2ni_2c5jed63jeljd6DBT1w79r18";
+    const gallery = document.querySelector(".gallery");
+    const popup = document.getElementById("popup");
+    const popupImg = document.getElementById("popup-img");
+    const relatedDiv = document.getElementById("related-images");
+    const closePopupBtn = document.getElementById("closePopup");
+    let page = 1;
+    let relatedPage = 1;
+    const perPage = 20;
+    let loading = false;
+    let currentSearchTerm = "design";
 
-  async function loadImages() {
-    if (loading) return;
-    loading = true;
-
-    try {
-      const res = await fetch(`https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}&client_id=${accessKey}`);
-      const data = await res.json();
-
-      data.results.forEach(photo => {
-        const img = document.createElement("img");
-        img.src = photo.urls.small;
-        img.alt = photo.alt_description || "Design Image";
-        img.loading = "lazy";
-        gallery.appendChild(img);
-      });
-
-      page++;
-    } catch (error) {
-      console.error("Failed to load images:", error);
+    async function loadImages() {
+      if (loading) return;
+      loading = true;
+      try {
+        const res = await fetch(`https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=design&client_id=${accessKey}`);
+        const data = await res.json();
+        data.results.forEach(photo => {
+          const img = document.createElement("img");
+          img.src = photo.urls.small;
+          img.alt = photo.alt_description || "Design Image";
+          img.loading = "lazy";
+          img.addEventListener("click", () => {
+            popup.style.display = "block";
+            popup.scrollTop = 0;
+            popupImg.src = photo.urls.regular;
+            currentSearchTerm = photo.tags?.[0]?.title || "design";
+            relatedPage = 1;
+            loadRelatedImages(currentSearchTerm, true);
+          });
+          gallery.appendChild(img);
+        });
+        page++;
+      } catch (error) {
+        console.error("Failed to load images:", error);
+      }
+      loading = false;
     }
 
-    loading = false;
-  }
-
-
-  loadImages();
-
-  
-  window.addEventListener("scroll", () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
-      loadImages();
+    async function loadRelatedImages(searchTerm, clear = false) {
+      try {
+        const res = await fetch(`https://api.unsplash.com/search/photos?query=${searchTerm}&page=${relatedPage}&per_page=12&client_id=${accessKey}`);
+        const data = await res.json();
+        if (clear) relatedDiv.innerHTML = "";
+        data.results.forEach(photo => {
+          const relatedImg = document.createElement("img");
+          relatedImg.src = photo.urls.thumb;
+          relatedImg.alt = photo.alt_description;
+          relatedImg.addEventListener("click", () => {
+            popupImg.src = photo.urls.regular;
+            currentSearchTerm = photo.tags?.[0]?.title || searchTerm;
+            relatedPage = 1;
+            loadRelatedImages(currentSearchTerm, true);
+          });
+          relatedDiv.appendChild(relatedImg);
+        });
+        relatedPage++;
+      } catch (e) {
+        console.log("Failed to load related images", e);
+      }
     }
-  });
-</script>
 
+    window.addEventListener("scroll", () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+        loadImages();
+      }
+    });
+
+    popup.addEventListener("scroll", () => {
+      if (popup.scrollTop + popup.clientHeight >= popup.scrollHeight - 200) {
+        loadRelatedImages(currentSearchTerm);
+      }
+    });
+
+    closePopupBtn.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+
+    loadImages();
+  </script>
 </body>
 </html>
-
