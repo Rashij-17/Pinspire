@@ -18,7 +18,7 @@
       overflow-x: hidden;
     }
 
-    header {
+    .navbar {
       background: #fff;
       padding: 1rem 2rem;
       display: flex;
@@ -30,16 +30,34 @@
       z-index: 10;
     }
 
-header h1 {
-   font-size: 1.8rem;
-  font-weight: bold;
-  color: #000000;
-  font-family:'Playfair Display', serif;
-  font-style: italic;
-  color: #b26e63;
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #b26e63;
+      font-family:'Playfair Display', serif;
+      font-style: italic;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #b26e63;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #a4574e;
     }
 
     header input {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
       padding: 0.6rem 1rem;
       width: 40%;
       border-radius: 25px;
@@ -47,6 +65,9 @@ header h1 {
       outline: none;
       font-size: 1rem;
       transition: box-shadow 0.3s ease;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     header input:focus {
@@ -99,8 +120,17 @@ header h1 {
 </head>
 <body>
 
+  <header class="navbar">
+    <div class="logo"><i>Pinspire</i></div>
+    <nav class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="trending.html">Trending</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
   <header>
-    <h1>Pinspire</h1>
     <input type="text" placeholder="Search your inspiration...">
   </header>
 
