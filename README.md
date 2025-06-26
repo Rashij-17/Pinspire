@@ -6,7 +6,7 @@
 
 ## 🌐 Live Demo
 
-[Visit Pinspire Website](https://your-deployment-url.com)  
+[Visit Pinspire Website :- https://rashij-17.github.io/Pinspire/
 *(Replace with your GitHub Pages or hosting link)*
 
 ---
@@ -22,11 +22,6 @@
 
 ---
 
-## 📸 Screenshots
-
-![Login Page](screenshots/login.png)  
-![Profile Page](screenshots/profile.png)  
-![Admin Dashboard](screenshots/admin.png)
 
 *(Place screenshots in a `/screenshots` folder or adjust the path as needed)*
 
