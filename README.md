@@ -7,7 +7,7 @@
 ## 🌐 Live Demo
 
 [Visit Pinspire Website :- https://rashij-17.github.io/Pinspire/
-*(Replace with your GitHub Pages or hosting link)*
+
 
 ---
 
@@ -21,10 +21,6 @@
 - ✅ Responsive design
 
 ---
-
-
-*(Place screenshots in a `/screenshots` folder or adjust the path as needed)*
-
 ---
 
 ## 🧩 Tech Stack
@@ -32,13 +28,7 @@
 - **Frontend**: HTML5, CSS3, JavaScript  
 - **Backend**: Firebase Realtime Database  
 - **Authentication**: Custom Form + Firebase Sync  
-- **Hosting**: GitHub Pages / Firebase Hosting *(customize if needed)*
+- **Hosting**: GitHub Pages / Firebase Hosting 
 
 ---
 
-## 🔧 Setup Instructions
-
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/your-username/pinspire.git
-   cd pinspire
