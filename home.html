@@ -87,10 +87,8 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       background: white;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      height: 350px;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
     }
 
     .pin:hover {
@@ -100,7 +98,7 @@
 
     .pin img {
       width: 100%;
-      height: 100%;
+      height: 250px;
       object-fit: cover;
       display: block;
       transition: transform 0.4s ease;
@@ -108,6 +106,42 @@
 
     .pin:hover img {
       transform: scale(1.05);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-around;
+      padding: 0.8rem;
+      background: #fff;
+      border-top: 1px solid #eee;
+    }
+
+    .like-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #bbb;
+      transition: color 0.3s ease;
+    }
+
+    .like-btn.liked {
+      color: red;
+    }
+
+    .actions button.share-btn {
+      background: #b26e63;
+      border: none;
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .actions button.share-btn:hover {
+      background: #8a4f44;
     }
 
     #loading {
@@ -143,31 +177,62 @@
     let loadingImages = false;
     let imageCount = 0;
 
-    function loadImages(count = 10) {
+    async function fetchImages(count = 10) {
+      const response = await fetch(`https://api.unsplash.com/photos/random?count=${count}&client_id=4wgMoe-SXEHdJjLntU11-4XXgMLszoMP9SiKT_Js5P0`);
+      const data = await response.json();
+      return data.map(img => img.urls.regular);
+    }
+
+    async function loadImages(count = 10) {
       if (loadingImages) return;
       loadingImages = true;
 
-      for (let i = 0; i < count; i++) {
-        const pin = document.createElement("div");
-        pin.className = "pin";
+      try {
+        const imageUrls = await fetchImages(count);
 
-        const img = new Image();
-        img.src = `https://picsum.photos/300/400?random=${imageCount + i}`;
-        img.alt = "Aesthetic Pin";
+        imageUrls.forEach(url => {
+          const pin = document.createElement("div");
+          pin.className = "pin";
 
-        img.onload = () => {
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = "Aesthetic Pin";
+
+          const actions = document.createElement("div");
+          actions.className = "actions";
+
+          const likeBtn = document.createElement("button");
+          likeBtn.className = "like-btn";
+          likeBtn.innerHTML = "&#10084;"; // Heart symbol
+
+          likeBtn.addEventListener("click", () => {
+            likeBtn.classList.toggle("liked");
+          });
+
+          const shareBtn = document.createElement("button");
+          shareBtn.className = "share-btn";
+          shareBtn.textContent = "Share";
+
+          shareBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(url);
+            alert("Image URL copied to clipboard!");
+          });
+
+          actions.appendChild(likeBtn);
+          actions.appendChild(shareBtn);
+
           pin.appendChild(img);
-          gallery.appendChild(pin);
-          if (i === count - 1) {
-            loadingImages = false;
-            imageCount += count;
-          }
-        };
+          pin.appendChild(actions);
 
-        img.onerror = () => {
-          loadingImages = false;
-          loading.innerText = "Failed to load pins. Try refreshing.";
-        };
+          gallery.appendChild(pin);
+        });
+
+        loadingImages = false;
+        imageCount += count;
+      } catch (err) {
+        console.error("Image fetch failed:", err);
+        loading.innerText = "Failed to load pins. Try refreshing.";
+        loadingImages = false;
       }
     }
 
