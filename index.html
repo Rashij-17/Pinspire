@@ -5,35 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pinspire - Welcome</title>
   <link rel="stylesheet" href="style.css"/>
-  <style>
-    video {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-  </style>
 </head>
 <body>
-  <header class="navbar">
-    <div id="nav1" class="logo"><i>Pinspire</i></div>
-    <input type="text" placeholder="Search inspiration..." class="search-box"/>
-    <nav class="nav-links">
-      <a href="home.html">Home</a>
-      <a href="explore.html">Explore</a>
-      <a href="trending.html">Trending</a>
-      <a href="profile.html">Profile</a>
-    </nav>
+
+  <header>
+    <div class="navbar">
+      <div id="nav1"><i>Pinspire</i></div>
+
+      <!-- Search Form -->
+      <form class="search-form" id="searchForm">
+  <input
+    type="text"
+    name="query"
+    id="searchInput"
+    placeholder="Search inspiration..."
+    class="search-box"
+    required
+  />
+  <button type="submit" class="search-btn">Search</button>
+</form>
+      <!-- Nav links -->
+      <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="explore.html">Explore</a>
+        <a href="trending.html">Trending</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <!-- Video section right below navbar -->
+    <!-- Background Video -->
     <video src="Pinspire.mp4" autoplay muted loop playsinline></video>
+
+    <!-- Image Results -->
+    <div id="imageResults"></div>
   </main>
-    <button class="btn-bottom">
-      <a id="linkbtn" href="login.html">Log in</a>
-    </button>
+
+  <!-- Login Button -->
+  <button class="btn-bottom">
+    <a id="linkbtn" href="login.html">Log in</a>
+  </button>
+
+  <!-- Footer -->
   <footer>
-   <h4> made with ♡ by HRNSS</h4>
+    <h4>made with ♡ by HRNSS</h4>
   </footer>
+<script>
+  document.getElementById("searchForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const query = document.getElementById("searchInput").value.trim();
+    if (query !== "") {
+      window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+    }
+  });
+</script>
+  
 </body>
 </html>

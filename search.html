@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search Results - Pinspire</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fdfcfa;
+    }
+    h2 {
+      text-align: center;
+      padding: 20px;
+      color: #b26e63;
+      font-family: 'Playfair Display', serif;;
+    }
+    #imageResults {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    #imageResults img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    #imageResults img:hover {
+      transform: scale(1.03);
+    }
+    .navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 15px 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  gap: 20px;
+}
+
+#nav1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #b26e63;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #555;
+  margin-left: 20px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #b26e63;
+}
+/*.pinboard {
+  column-count: 4;
+  column-gap: 20px;
+  padding: 20px 30px;
+}
+
+.pin {
+  background: white;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  break-inside: avoid;
+  transition: transform 0.3s;
+}
+
+.pin:hover {
+  transform: scale(1.02);
+}
+
+.pin img {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #eee;
+  border-radius: 10px;
+}*/
+
+.loader {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size:larger;
+  color: #b26e63;
+  padding: 20px;
+  font-style: italic;
+  font-family: 'Segoe UI', sans-serif;
+}
+  </style>
+</head>
+<body>
+<header>
+    <div class="navbar">
+      <div id="nav1"><i>Pinspire</i></div>
+ <!-- Nav links -->
+      <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="explore.html">Explore</a>
+        <a href="trending.html">Trending</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </div>
+  </header>
+  <h2> Search Results for <span id="searchTerm"></span>🔍</h2>
+  <div id="imageResults"></div>
+  <div class="pinboard" id="imageResults">
+  <!-- dynamic images inserted here -->
+</div>
+<div id="loader" class="loader">Loading more images...</div>
+ <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const query = urlParams.get("query");
+  document.getElementById("searchTerm").textContent = query;
+
+  const accessKey = "mj3SGnFpq_5uG2WhV1778rvGvWv-3fTp87dOkgiUIIw";
+  const imageContainer = document.getElementById("imageResults");
+  let page = 1;
+  let loading = false; // ✅ Define this!
+
+  async function fetchImages() {
+    if (loading) return;
+    loading = true;
+
+    // Show loader
+    document.getElementById("loader").style.display = "flex";
+
+    const url = `https://api.unsplash.com/search/photos?query=${query}&page=${page}&per_page=12&client_id=${accessKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    data.results.forEach(photo => {
+      const pin = document.createElement("div");
+      pin.classList.add("pin");
+
+      const img = document.createElement("img");
+      img.src = photo.urls.small;
+      img.alt = photo.alt_description || "image";
+
+      pin.appendChild(img);
+      imageContainer.appendChild(pin);
+    });
+
+    // Hide loader
+    document.getElementById("loader").style.display = "none";
+    loading = false;
+  }
+
+  // Initial load
+  fetchImages();
+
+  // Infinite scroll
+  window.addEventListener("scroll", () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+      page++;
+      fetchImages();
+    }
+  });
+</script>
+</body>
+</html>
